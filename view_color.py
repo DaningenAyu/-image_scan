@@ -41,7 +41,7 @@ class ViewColor():
             print(color)
         cv2.imshow('viewHSV',img)
 
-    def detectcolor(self):
+    def putColor(self):
         if self.h < 5 or 170 < self.h:
             if self.pv < 40:
                 color = 'brown'
@@ -61,18 +61,27 @@ class ViewColor():
             color = 'yellow green'
         elif self.h < 50:
             color = 'green'
-        elif self.h < 75:
-            color = 'blue green'
+        elif self.h < 80:
+            if self.pv < 30:
+                color = 'green'
+            else:
+                color = 'blue green'
         elif self.h < 100:
-            color = 'light blue'
+            if self.pv < 20:
+                color = 'green'
+            else:
+                color = 'light blue'
         elif self.h < 130:
             color = 'blue'
         elif self.h < 140:
             color = 'purple'
         else:
-            color = 'pink'
+            if self.h < 160 and self.pv < 30:
+                color = 'purple'
+            else: 
+                color = 'pink'
         return color
-    
+
     def detectBWG(self):
         B = 'black'
         W = 'white'
@@ -80,31 +89,19 @@ class ViewColor():
         print('ps:{},pv:{}'.format(self.ps,self.pv))
 
         if self.ps <  5:
-            color = self.ifColor(20,B,70,G,W)
+            color = self.if3Color(15,B,60,G,W)
         elif self.ps < 10:
-            color = self.ifColor(20,B,80,G,W)
+            color = self.if3Color(20,B,65,G,W)
         elif self.ps < 20:
-            color = self.ifColor(25,B,70,G,W)
-        elif self.ps < 30:
-            color = self.ifColor(25,B,60,G,W)
-        elif self.ps < 40:
-            color = self.ifColor(30,B,50,G,self.detectcolor())
-        elif self.ps < 50:
-            color = self.ifColor(30,B,40,G,self.detectcolor())
+            color = self.if3Color(15,B,20,G,self.putColor())
         elif self.ps < 60:
-            if self.pv < 30:
-                color = B
-            else:
-                color = self.detectcolor()
+            color = self.if3Color(20,B,25,G,self.putColor())
         else:
-            color = self.detectcolor()
-        
-        if (self.h < 20 or 170 < self.h) and self.ps < 45 and self.pv < 45:
-            color = 'brown'
+            color = self.putColor()
 
         return color
 
-    def ifColor(self,pv_range1,color1,pv_range2,color2,color3):
+    def if3Color(self,pv_range1,color1,pv_range2,color2,color3):
         if self.pv  < pv_range1:
             color = color1
         elif self.pv < pv_range2:
@@ -112,7 +109,7 @@ class ViewColor():
         else:
             color = color3
         return color
-
+    
 
 if __name__ == '__main__':
     try:
