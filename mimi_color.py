@@ -12,19 +12,15 @@ class DetectColor():
         print('ps:{},pv:{}'.format(self.ps,self.pv))
 
         if self.ps <  5:
-            color = self.if3Color(15,B,60,G,W)
+            color = self.if3Color(15,B,60,G,W) #Black < 15 < Gray < 60 <= White
         elif self.ps < 10:
-            color = self.if3Color(20,B,65,G,W)
+            color = self.if3Color(20,B,50,G,W) #Black < 20 < Gray < 50 <= White
         elif self.ps < 20:
-            color = self.if3Color(12,B,20,G,self.putColor())
-        elif self.ps < 30:
-            color = self.if2Color(11,B,self.putColor())
+            color = self.if3Color(20,B,30,G,self.putColor()) #Black < 20 <= Gray < 30 <= Color
         elif self.ps < 40:
-            color = self.if2Color(10,B,self.putColor())
-        elif self.ps < 50:
-            color = self.if2Color(9,B,self.putColor())
+            color = self.if2Color(15,B,self.putColor()) #Black < 15 <= Color
         elif self.ps < 60:
-            color = self.if2Color(8,B,self.putColor())
+            color = self.if2Color(10,B,self.putColor()) #Black < 10 <= Color
         else:
             color = self.putColor()
 
