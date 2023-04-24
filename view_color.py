@@ -7,6 +7,7 @@ import rospy
 import sys
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge,CvBridgeError
+import mimi_color
 
 
 class ViewColor():
@@ -37,7 +38,9 @@ class ViewColor():
             print(hsv_str)
             self.ps = 100 / 255 * self.s
             self.pv = 100 / 255 * self.v
-            color = self.detectBWG()
+            dcolor = mimi_color.DetectColor()
+            color = dcolor.detectColor(hsvclor[y,x,:])
+            #color = self.detectBWG()
             print(color)
         cv2.imshow('viewHSV',img)
 
